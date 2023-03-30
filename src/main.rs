@@ -7,7 +7,7 @@ use std::env;
 
 lazy_static! {
     static ref DICE_REGEX: Regex =
-        Regex::new(r"\s*(([1-9][0-9]*)d)?([1-9][0-9]*)(([+-]*[1-9][0-9]*))?").unwrap();
+        Regex::new(r"\s*(([1-9][0-9]*)d)?([1-9][0-9]*)(([+-][1-9][0-9]*))?").unwrap();
 }
 
 fn convert_capture(captures: &regex::Captures, index: usize, default: i32) -> i32 {
