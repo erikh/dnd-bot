@@ -34,12 +34,12 @@ fn roll(text: String) -> String {
 
     for _ in 0..num_dice {
         let mut result: i32 = rand::random();
-        result = (result.abs() % die_size) + 1 + offset; // dice start at 1
+        result = (result.abs() % die_size) + 1; // dice start at 1
         dice.push(result);
         sum += result as i128
     }
 
-    format!("sum: {} | dice: {:?}", sum, dice)
+    format!("sum: {} | dice: {:?}", sum + offset as i128, dice)
 }
 
 struct Handler;
