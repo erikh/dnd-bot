@@ -31,15 +31,34 @@ fn roll(text: String) -> String {
 
     let mut dice: Vec<i32> = Vec::new();
     let mut sum: i128 = 0;
+    let mut advantage: i32 = 0;
+    let mut disadvantage: i32 = 0;
 
     for _ in 0..num_dice {
         let mut result: i32 = rand::random();
         result = (result.abs() % die_size) + 1; // dice start at 1
         dice.push(result);
-        sum += result as i128
+        sum += result as i128;
+        if result > advantage {
+            advantage = result;
+        }
+
+        if result < disadvantage || disadvantage == 0 {
+            disadvantage = result;
+        }
     }
 
-    format!("sum: {} | dice: {:?}", sum + offset as i128, dice)
+    if dice.len() > 1 {
+        format!(
+            "sum: {} | advantage: {} | disadvantage: {} | dice: {:?}",
+            sum + offset as i128,
+            advantage + offset,
+            disadvantage + offset,
+            dice
+        )
+    } else {
+        format!("sum: {} | dice: {:?}", sum + offset as i128, dice)
+    }
 }
 
 struct Handler;
