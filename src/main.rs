@@ -70,7 +70,7 @@ impl EventHandler for Handler {
     async fn message(&self, ctx: Context, msg: Message) {
         let content = &msg.content;
 
-        if &msg.author.id.to_string() != BOT_ID {
+        if &msg.author.id.to_string() == BOT_ID {
             return;
         }
 
