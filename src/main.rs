@@ -66,8 +66,27 @@ struct Handler;
 #[async_trait]
 impl EventHandler for Handler {
     async fn message(&self, ctx: Context, msg: Message) {
-        if msg.content.starts_with("!roll") {
-            if let Err(why) = msg.channel_id.say(&ctx.http, roll(msg.content)).await {
+        let content = &msg.content;
+
+        if content.starts_with("!roll") {
+            if let Err(why) = msg
+                .channel_id
+                .say(&ctx.http, roll(msg.content.clone()))
+                .await
+            {
+                println!("Error sending message: {:?}", why);
+            }
+        }
+
+        if content.starts_with("!help") {
+            if let Err(why) = msg
+                .channel_id
+                .say(
+                    &ctx.http,
+                    "!roll <N>d<SIZE>[+-]<MOD>: roll dice. for example: !roll 2d20+3",
+                )
+                .await
+            {
                 println!("Error sending message: {:?}", why);
             }
         }
