@@ -5,6 +5,8 @@ use serenity::model::prelude::*;
 use serenity::prelude::*;
 use std::env;
 
+const BOT_ID: &str = "940096991256510537";
+
 lazy_static! {
     static ref DICE_REGEX: Regex =
         Regex::new(r"\s*(([1-9][0-9]*)d)?([1-9][0-9]*)(([+-][1-9][0-9]*))?").unwrap();
@@ -67,6 +69,10 @@ struct Handler;
 impl EventHandler for Handler {
     async fn message(&self, ctx: Context, msg: Message) {
         let content = &msg.content;
+
+        if &msg.author.id.to_string() != BOT_ID {
+            return;
+        }
 
         if content.starts_with("!roll") {
             if let Err(why) = msg
